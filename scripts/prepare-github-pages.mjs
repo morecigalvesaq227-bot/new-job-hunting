@@ -22,4 +22,31 @@ async function visit(directory) {
 }
 
 await visit(root);
-console.log(`Prepared ${root} for ${assetPrefix}/`);
+
+const missingAssets = new Set();
+async function validateAssets(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      await validateAssets(file);
+      continue;
+    }
+    if (!textExtensions.has(path.extname(entry.name))) continue;
+    const contents = await readFile(file, "utf8");
+    for (const match of contents.matchAll(/\/new-job-hunting\/images\/([^"'\x60)\s?#]+)/g)) {
+      const assetPath = path.resolve(root, "images", match[1]);
+      if (!assetPath.startsWith(path.resolve(root, "images") + path.sep)) continue;
+      try {
+        await readFile(assetPath);
+      } catch {
+        missingAssets.add(match[0]);
+      }
+    }
+  }
+}
+
+await validateAssets(root);
+if (missingAssets.size) {
+  throw new Error(`Missing exported image assets:\n${[...missingAssets].sort().join("\n")}`);
+}
+console.log(`Prepared ${root} for ${assetPrefix}/ and verified referenced images.`);
