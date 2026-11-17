@@ -30,6 +30,8 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_SITE_URL: https://morecigalvesaq227-bot.github.io/new-job-hunting
+      - name: Optimize static images for mobile bandwidth
+        run: node scripts/optimize-pages-images.mjs
       - name: Prepare project-site asset paths
         run: node scripts/prepare-github-pages.mjs
       - name: Configure Pages
@@ -52,3 +54,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+
