@@ -276,4 +276,227 @@ body{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif;font-weight:400;let
 .illustrated-site.motion-off .art-hero-ridge-ochre{transform:scale(1.04)!important}
 .illustrated-site.motion-off .art-hero-network,.illustrated-site.motion-off .art-hero-candles,.illustrated-site.motion-off .art-hero-trend{transform:none!important}
 @media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-blue{transform:scale(1.22)!important}.illustrated-site.motion-off .art-hero-ridge-navy{transform:scale(1.12)!important}.illustrated-site.motion-off .art-hero-ridge-sage{transform:scale(1.17)!important}.illustrated-site.motion-off .art-hero-ridge-ochre{transform:scale(1.06)!important}}
-@media(max-width:780px){.art-hero{min-height:1180px}.art-hero-illustration{height:54%;bottom:56px}}
+/* Final mobile composition: bring the paper landscape closer to the copy and give each layer visible, gentle motion. */
+@media(max-width:780px){
+ .art-hero{min-height:940px}
+ .art-hero-illustration{height:56%;bottom:48px}
+ .art-hero-illustration .art-hero-candles{left:10%;top:40%;width:74%;height:43%}
+ .art-hero-illustration .art-hero-trend{left:-17%;top:10%;width:116%;height:100%}
+ .art-hero-illustration .art-hero-trend-glint{inset:10% -17% -10%}
+ .art-hero-illustration .art-hero-ridge-blue{--ridge-scale:1.22}
+ .art-hero-illustration .art-hero-ridge-navy{--ridge-scale:1.12}
+ .art-hero-illustration .art-hero-ridge-sage{--ridge-scale:1.17}
+ .art-hero-illustration .art-hero-ridge-ochre{--ridge-scale:1.06}
+}
+@keyframes hero-ridge-drift{from{transform:translate3d(0,14px,0) scale(var(--ridge-scale,1))}to{transform:translate3d(0,-14px,0) scale(calc(var(--ridge-scale,1) + .018))}}
+@media(max-width:780px){
+ .art-hero-ridge-blue{animation-duration:8s}
+ .art-hero-ridge-navy{animation-duration:10s}
+ .art-hero-ridge-sage{animation-duration:7s}
+ .art-hero-ridge-ochre{animation-duration:9s}
+}
+/* Thread the finer trend curve between the navy and sage paper ridges. */
+.art-hero-ridge-blue{z-index:2}
+.art-hero-ridge-navy{z-index:3}
+.art-hero-trend,.art-hero-trend-glint{z-index:4}
+.art-hero-ridge-sage{z-index:5}
+.art-hero-network{z-index:6}
+.art-hero-ridge-ochre{z-index:7}
+.art-hero-grid{z-index:8}
+.art-hero-candles{z-index:9}
+.art-filter-defs{position:absolute;width:0;height:0;overflow:hidden}
+.art-hero-trend,.art-hero-trend-glint{filter:url(#hero-trend-thin)}
+.art-hero-illustration .art-hero-candles{height:60%}
+@media(max-width:780px){.art-hero-illustration .art-hero-candles{height:57.3%}}
+
+/* A layered paper-sky header; the clear middle keeps the navigation legible. */
+.art-header{isolation:isolate}
+.art-header-clouds{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none}
+.art-header>*:not(.art-header-clouds){z-index:2}
+.art-header-cloud{position:absolute;display:block;top:-2%;height:104%;object-fit:fill;pointer-events:none;will-change:transform}
+.art-header-cloud-distant{left:-7%;width:114%;opacity:.42;animation:header-cloud-drift-left 34s ease-in-out infinite alternate}
+.art-header-cloud-middle{left:-14%;width:128%;top:3%;height:96%;opacity:.34;animation:header-cloud-drift-right 27s ease-in-out infinite alternate}
+.art-header-cloud-front{left:-5%;width:110%;top:-7%;height:112%;opacity:.31;animation:header-cloud-drift-left 22s ease-in-out -8s infinite alternate}
+@keyframes header-cloud-drift-left{from{transform:translateX(-1.2%)}to{transform:translateX(1.2%)}}
+@keyframes header-cloud-drift-right{from{transform:translateX(1.4%)}to{transform:translateX(-1.4%)}}
+.art-hero-foot{justify-content:flex-end}
+.art-hero-illustration::after{content:"";position:absolute;z-index:10;left:-1%;right:-1%;bottom:-1%;height:14%;pointer-events:none;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);background:linear-gradient(180deg,rgba(243,234,216,0) 0%,rgba(243,234,216,.54) 52%,rgba(243,234,216,.94) 100%)}
+@media(max-width:780px){.art-header-cloud-distant{left:-22%;width:144%}.art-header-cloud-middle{left:-28%;width:156%}.art-header-cloud-front{left:-18%;width:136%}.art-hero-illustration::after{height:16%;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}}
+@media(prefers-reduced-motion:reduce){.art-header-cloud{animation:none!important;transform:none!important}}
+
+/* Latest ridge alignment: keep the base edge in the frame while the ochre crest rises. */
+.art-hero-ridge-sage{animation:hero-sage-lower-final 10s ease-in-out -4s infinite alternate}
+.art-hero-ridge-ochre{transform-origin:center bottom;animation:hero-ochre-advance-final 9s ease-in-out -2s infinite alternate}
+@keyframes hero-sage-lower-final{from{transform:translateY(1.7%) scale(var(--ridge-scale,1.17))}to{transform:translateY(3.2%) scale(calc(var(--ridge-scale,1.17) + .01))}}
+@keyframes hero-ochre-advance-final{from{transform:translate(2%, -1.5%) scaleX(1.2) scaleY(1.1)}to{transform:translate(2.7%, -2.2%) scaleX(1.208) scaleY(1.12)}}
+@media(max-width:780px){
+ .art-hero-ridge-sage{animation-duration:9s}
+ @keyframes hero-sage-lower-final{from{transform:translateY(2.2%) scale(var(--ridge-scale,1.17))}to{transform:translateY(3.8%) scale(calc(var(--ridge-scale,1.17) + .01))}}
+ @keyframes hero-ochre-advance-final{from{transform:translate(3%, -1.5%) scaleX(1.27) scaleY(1.1)}to{transform:translate(3.7%, -2.2%) scaleX(1.278) scaleY(1.12)}}
+}
+@media(prefers-reduced-motion:reduce){.art-hero-ridge-sage{animation:none!important;transform:translateY(2.5%) scale(1.12)!important}.art-hero-ridge-ochre{animation:none!important;transform:translate(2%,-1.8%) scaleX(1.2) scaleY(1.11)!important}}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){.art-hero-ridge-sage{transform:translateY(3%) scale(1.17)!important}.art-hero-ridge-ochre{transform:translate(3%,-1.8%) scaleX(1.27) scaleY(1.11)!important}}
+.illustrated-site.motion-off .art-hero-ridge-sage{animation:none!important;transform:translateY(2.5%) scale(1.12)!important}
+.illustrated-site.motion-off .art-hero-ridge-ochre{animation:none!important;transform:translate(2%,-1.8%) scaleX(1.2) scaleY(1.11)!important}
+@media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-sage{transform:translateY(3%) scale(1.17)!important}.illustrated-site.motion-off .art-hero-ridge-ochre{transform:translate(3%,-1.8%) scaleX(1.27) scaleY(1.11)!important}}
+.art-hero-ridge-ochre{height:105%!important;bottom:auto!important}
+
+/* Close the lower-left seam by letting the ochre edge advance over the lowered sage ridge. */
+.art-hero-ridge-sage{animation:hero-sage-lower 10s ease-in-out -4s infinite alternate}
+.art-hero-ridge-ochre{transform-origin:center bottom;animation:hero-ochre-advance 9s ease-in-out -2s infinite alternate}
+@keyframes hero-sage-lower{from{transform:translate3d(0,1.7%,0) scale(var(--ridge-scale,1.12))}to{transform:translate3d(0,3%,0) scale(calc(var(--ridge-scale,1.12) + .012))}}
+@keyframes hero-ochre-advance{from{transform:translate3d(1.6%,6%,0) scaleX(1.2) scaleY(1.12)}to{transform:translate3d(2.3%,6%,0) scaleX(1.208) scaleY(1.135)}}
+@media(max-width:780px){
+ .art-hero-ridge-sage{animation-duration:9s}
+ .art-hero-ridge-ochre{animation-duration:10s}
+ @keyframes hero-sage-lower{from{transform:translate3d(0,2.2%,0) scale(var(--ridge-scale,1.17))}to{transform:translate3d(0,3.5%,0) scale(calc(var(--ridge-scale,1.17) + .012))}}
+ @keyframes hero-ochre-advance{from{transform:translate3d(2.5%,6%,0) scaleX(1.27) scaleY(1.12)}to{transform:translate3d(3.2%,6%,0) scaleX(1.278) scaleY(1.135)}}
+}
+@media(prefers-reduced-motion:reduce){.art-hero-ridge-sage{animation:none!important;transform:translateY(2.4%) scale(1.12)!important}.art-hero-ridge-ochre{animation:none!important;transform:translate(1.8%,6%) scaleX(1.2) scaleY(1.125)!important}}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){.art-hero-ridge-sage{transform:translateY(2.8%) scale(1.17)!important}.art-hero-ridge-ochre{transform:translate(2.8%,6%) scaleX(1.27) scaleY(1.125)!important}}
+.illustrated-site.motion-off .art-hero-ridge-sage{animation:none!important;transform:translateY(2.4%) scale(1.12)!important}
+.illustrated-site.motion-off .art-hero-ridge-ochre{animation:none!important;transform:translate(1.8%,6%) scaleX(1.2) scaleY(1.125)!important}
+@media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-sage{transform:translateY(2.8%) scale(1.17)!important}.illustrated-site.motion-off .art-hero-ridge-ochre{transform:translate(2.8%,6%) scaleX(1.27) scaleY(1.125)!important}}
+
+/* Close the lower-left seam: lift the ochre foreground, settle the sage ridge lower. */
+.art-hero-ridge-sage{animation:hero-sage-settle 11s ease-in-out -3s infinite alternate}
+.art-hero-ridge-ochre{animation:hero-ochre-cover 8s ease-in-out infinite alternate}
+@keyframes hero-sage-settle{from{transform:translate3d(0,12px,0) scale(var(--ridge-scale,1.12))}to{transform:translate3d(0,22px,0) scale(calc(var(--ridge-scale,1.12) + .012))}}
+@keyframes hero-ochre-cover{from{transform:translate3d(0,-12px,0) scaleX(var(--ridge-scale,1.04)) scaleY(var(--ridge-height-scale,.72))}to{transform:translate3d(0,-18px,0) scaleX(calc(var(--ridge-scale,1.04) + .006)) scaleY(calc(var(--ridge-height-scale,.72) + .008))}}
+@media(max-width:780px){.art-hero-ridge-sage{animation-duration:10s}.art-hero-ridge-ochre{--ridge-height-scale:.70}}
+@media(prefers-reduced-motion:reduce){.art-hero-ridge-sage{animation:none!important;transform:translateY(18px) scale(1.12)!important}.art-hero-ridge-ochre{animation:none!important;transform:translateY(-15px) scaleX(1.04) scaleY(.72)!important}}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){.art-hero-ridge-sage{transform:translateY(20px) scale(1.12)!important}.art-hero-ridge-ochre{transform:translateY(-15px) scaleX(1.06) scaleY(.70)!important}}
+.illustrated-site.motion-off .art-hero-ridge-sage{animation:none!important;transform:translateY(18px) scale(1.12)!important}
+.illustrated-site.motion-off .art-hero-ridge-ochre{animation:none!important;transform:translateY(-15px) scaleX(1.04) scaleY(.72)!important}
+@media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-sage{transform:translateY(20px) scale(1.12)!important}.illustrated-site.motion-off .art-hero-ridge-ochre{transform:translateY(-15px) scaleX(1.06) scaleY(.70)!important}}
+
+/* Let the paper cutout finish with its own irregular edge instead of a clipped fade. */
+.illustrated-site{overflow-x:clip;overflow-y:visible}
+.art-hero{overflow:visible;border-bottom:0}
+.art-hero-illustration{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible}
+.art-hero-illustration::after,.art-hero-edge-wash{content:none!important;display:none!important}
+
+/* Enlarge the foreground ochre paper so it safely covers the moving inner ridges. */
+.art-hero-ridge-ochre{--ridge-scale:1.2;animation-name:hero-ochre-cover;animation-duration:12s;z-index:7}
+@keyframes hero-ochre-cover{
+  from{transform:translate3d(0,2px,0) scale(var(--ridge-scale,1.2))}
+  to{transform:translate3d(0,-2px,0) scale(calc(var(--ridge-scale,1.2) + .008))}
+}
+@media(max-width:780px){.art-hero-ridge-ochre{--ridge-scale:1.27;animation-duration:13s}}
+@media(prefers-reduced-motion:reduce){.art-hero-ridge-ochre{animation:none!important;transform:scale(1.2)!important}}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){.art-hero-ridge-ochre{transform:scale(1.27)!important}}
+.illustrated-site.motion-off .art-hero-ridge-ochre{animation:none!important;transform:scale(1.2)!important}
+@media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-ochre{transform:scale(1.27)!important}}
+
+/* Remove the rule beneath the cloud bank and give the clouds a slow, visible flow. */
+.art-header{border-bottom:0!important;box-shadow:none!important}
+.art-header-cloud-01,.art-header-cloud-05,.art-header-cloud-09{animation-name:cloud-flow-a!important}
+.art-header-cloud-02,.art-header-cloud-06,.art-header-cloud-10{animation-name:cloud-flow-b!important}
+.art-header-cloud-03,.art-header-cloud-04,.art-header-cloud-07,.art-header-cloud-08{animation-name:cloud-flow-c!important}
+.art-header-cloud-01{animation-duration:22s!important}.art-header-cloud-02{animation-duration:29s!important}
+.art-header-cloud-03{animation-duration:25s!important}.art-header-cloud-04{animation-duration:32s!important}
+.art-header-cloud-05{animation-duration:24s!important}.art-header-cloud-06{animation-duration:30s!important}
+.art-header-cloud-07{animation-duration:21s!important}.art-header-cloud-08{animation-duration:34s!important}
+.art-header-cloud-09{animation-duration:27s!important}.art-header-cloud-10{animation-duration:23s!important}
+@keyframes cloud-flow-a{0%{transform:translate3d(-5%,2px,0) scale(.99);opacity:.55}50%{transform:translate3d(0,-3px,0) scale(1.025);opacity:.78}100%{transform:translate3d(5%,2px,0) scale(.99);opacity:.59}}
+@keyframes cloud-flow-b{0%{transform:translate3d(5%,-2px,0) scale(1.015);opacity:.48}50%{transform:translate3d(0,3px,0) scale(.99);opacity:.72}100%{transform:translate3d(-5%,-2px,0) scale(1.02);opacity:.54}}
+@keyframes cloud-flow-c{0%{transform:translate3d(-3%,-3px,0) scale(1);opacity:.50}50%{transform:translate3d(3%,2px,0) scale(1.03);opacity:.75}100%{transform:translate3d(-2%,0,0) scale(.99);opacity:.56}}
+
+/* Replace the solid nav slab with a full-width, blue washi cloud bank. */
+.art-header{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom-color:rgba(39,79,97,.16)!important}
+.art-header-cloud-distant{left:-13%;width:126%;top:-25%;height:150%;opacity:.70;filter:saturate(1.42) contrast(1.05);animation-duration:34s}
+.art-header-cloud-middle{left:-18%;width:136%;top:-14%;height:142%;opacity:.55;filter:saturate(1.5) contrast(1.04);animation-duration:27s}
+.art-header-cloud-front{left:-10%;width:120%;top:-25%;height:150%;opacity:.40;filter:saturate(1.55) contrast(1.05);animation-duration:22s}
+.art-header-cloud{object-fit:fill}
+/* Soft paper pigment bleed only at the bottom edge; no broad blur band. */
+.art-hero-illustration::after{content:"";position:absolute;z-index:10;left:-1%;right:-1%;bottom:-1%;height:3.2%;pointer-events:none;background:linear-gradient(180deg,rgba(213,160,79,0) 0%,rgba(213,160,79,.07) 56%,rgba(243,234,216,.14) 100%);filter:blur(2px)}
+.art-hero-edge-wash{position:absolute;z-index:11;left:-2%;right:-2%;bottom:-1.5%;width:104%;height:5%;object-fit:fill;opacity:.26;filter:blur(1.2px);pointer-events:none;mask-image:linear-gradient(180deg,transparent 0%,#000 45%,#000 100%)}
+@media(max-width:780px){
+ .art-header-cloud-distant{left:-23%;width:148%;top:-25%;height:150%;opacity:.74}
+ .art-header-cloud-middle{left:-29%;width:160%;top:-16%;height:142%;opacity:.58}
+ .art-header-cloud-front{left:-19%;width:140%;top:-25%;height:150%;opacity:.42}
+ .art-hero-illustration::after{height:3.6%;filter:blur(1.6px)}
+ .art-hero-edge-wash{height:5%;opacity:.24}
+}
+/* Keep the generated wash constrained to the final few pixels (the generic illustration img rule is intentionally broad). */
+.art-hero-illustration .art-hero-edge-wash{width:104%;height:5%;object-fit:fill;object-position:center bottom;left:-2%;bottom:-1.5%;opacity:.24;filter:blur(1.8px);mask-image:linear-gradient(180deg,transparent 0%,#000 48%,#000 100%)}
+@media(max-width:780px){.art-hero-illustration .art-hero-edge-wash{height:5.5%;opacity:.22;filter:blur(1.6px)}}
+/* Feather only the landscape cut edge into the page paper, rather than blurring a wide strip. */
+.art-hero-illustration{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 94%,rgba(0,0,0,.72) 97%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 94%,rgba(0,0,0,.72) 97%,transparent 100%)}
+@media(max-width:780px){.art-hero-illustration{-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 93%,rgba(0,0,0,.72) 97%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 93%,rgba(0,0,0,.72) 97%,transparent 100%)}}
+/* The ochre ridge now carries its own soft pigment bleed, preserving the original hand-cut silhouette. */
+.art-hero-illustration::after{content:none!important;display:none!important}
+.art-hero-edge-wash{display:none!important}
+/* Ten independent sunlit washi clouds build an airy, layered nav sky. */
+.art-header-cloud{position:absolute;display:block;height:174%;object-fit:fill;pointer-events:none;will-change:transform;filter:saturate(1.05) contrast(1.02)}
+.art-header-cloud-01{left:-3%;top:-37%;width:37%;opacity:.74;animation:cloud-drift-a 27s ease-in-out infinite alternate}
+.art-header-cloud-02{left:7%;top:-54%;width:31%;opacity:.52;animation:cloud-drift-b 33s ease-in-out -9s infinite alternate}
+.art-header-cloud-03{left:17%;top:-32%;width:35%;opacity:.67;animation:cloud-drift-c 24s ease-in-out -4s infinite alternate}
+.art-header-cloud-04{left:30%;top:-58%;width:30%;opacity:.49;animation:cloud-drift-b 37s ease-in-out -17s infinite alternate}
+.art-header-cloud-05{left:39%;top:-30%;width:38%;opacity:.68;animation:cloud-drift-a 30s ease-in-out -11s infinite alternate}
+.art-header-cloud-06{left:55%;top:-55%;width:29%;opacity:.52;animation:cloud-drift-c 35s ease-in-out -20s infinite alternate}
+.art-header-cloud-07{left:64%;top:-34%;width:37%;opacity:.68;animation:cloud-drift-b 26s ease-in-out -7s infinite alternate}
+.art-header-cloud-08{left:77%;top:-58%;width:28%;opacity:.50;animation:cloud-drift-a 32s ease-in-out -15s infinite alternate}
+.art-header-cloud-09{left:-7%;top:-62%;width:29%;opacity:.43;animation:cloud-drift-c 39s ease-in-out -22s infinite alternate}
+.art-header-cloud-10{left:72%;top:-18%;width:34%;opacity:.58;animation:cloud-drift-b 29s ease-in-out -13s infinite alternate}
+@keyframes cloud-drift-a{0%{transform:translate3d(-2.8%,2px,0)}100%{transform:translate3d(2.1%,-3px,0)}}
+@keyframes cloud-drift-b{0%{transform:translate3d(2.4%,-2px,0)}100%{transform:translate3d(-2.6%,3px,0)}}
+@keyframes cloud-drift-c{0%{transform:translate3d(-1.7%,-3px,0)}100%{transform:translate3d(2.8%,2px,0)}}
+.art-header{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom-color:rgba(39,79,97,.14)!important}
+.art-hero-illustration{-webkit-mask-image:none!important;mask-image:none!important}
+.art-hero-illustration::after{content:none!important;display:none!important}
+.art-hero-edge-wash{display:none!important}
+@media(max-width:780px){
+ .art-header-cloud{height:186%}
+ .art-header-cloud-01{left:-5%;top:-42%;width:42%}
+ .art-header-cloud-02{left:7%;top:-61%;width:34%}
+ .art-header-cloud-03{left:18%;top:-34%;width:40%}
+ .art-header-cloud-04{left:31%;top:-63%;width:34%}
+ .art-header-cloud-05{left:40%;top:-30%;width:42%}
+ .art-header-cloud-06{left:56%;top:-58%;width:32%}
+ .art-header-cloud-07{left:64%;top:-36%;width:42%}
+ .art-header-cloud-08{left:78%;top:-60%;width:31%}
+ .art-header-cloud-09{left:-8%;top:-67%;width:33%}
+ .art-header-cloud-10{left:72%;top:-18%;width:38%}
+ .art-hero-illustration{-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 100%)!important;mask-image:linear-gradient(180deg,transparent 0%,#000 10%,#000 100%)!important}
+}
+@media(prefers-reduced-motion:reduce){.art-header-cloud{animation:none!important;transform:none!important}}
+
+/* Final overrides: expose the cut-paper edge, protect the foreground ridge, and animate the cloud bank. */
+.illustrated-site{overflow-x:clip;overflow-y:visible}
+.art-hero{overflow:visible;border-bottom:0}
+.art-hero-illustration{overflow:visible;-webkit-mask-image:none!important;mask-image:none!important}
+.art-hero-illustration::after,.art-hero-edge-wash{content:none!important;display:none!important}
+.art-header{border-bottom:0!important;box-shadow:none!important}
+.art-hero-ridge-ochre{--ridge-scale:1.04;--ridge-height-scale:.72;transform-origin:center bottom;animation:hero-ochre-cover 8s ease-in-out infinite alternate;z-index:7}
+@keyframes hero-ochre-cover{from{transform:scaleX(var(--ridge-scale,1.04)) scaleY(var(--ridge-height-scale,.72))}to{transform:scaleX(calc(var(--ridge-scale,1.04) + .006)) scaleY(calc(var(--ridge-height-scale,.72) + .008))}}
+@keyframes hero-ridge-drift{from{transform:translate3d(0,-24px,0) scale(var(--ridge-scale,1))}to{transform:translate3d(0,-5px,0) scale(calc(var(--ridge-scale,1) + .012))}}
+@media(max-width:780px){.art-hero-ridge-ochre{--ridge-scale:1.06;--ridge-height-scale:.70;animation-duration:9s}}
+@media(prefers-reduced-motion:reduce){.art-hero-ridge-ochre{animation:none!important;transform:scaleX(1.04) scaleY(.72)!important}}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){.art-hero-ridge-ochre{transform:scaleX(1.06) scaleY(.70)!important}}
+.illustrated-site.motion-off .art-hero-ridge-ochre{animation:none!important;transform:scaleX(1.04) scaleY(.72)!important}
+@media(max-width:780px){.illustrated-site.motion-off .art-hero-ridge-ochre{transform:scaleX(1.06) scaleY(.70)!important}}
+.art-header-cloud-01{animation:cloud-flow-a 11s ease-in-out -2s infinite!important}
+.art-header-cloud-02{animation:cloud-flow-b 14s ease-in-out -8s infinite!important}
+.art-header-cloud-03{animation:cloud-flow-c 12s ease-in-out -4s infinite!important}
+.art-header-cloud-04{animation:cloud-flow-a 15s ease-in-out -11s infinite!important}
+.art-header-cloud-05{animation:cloud-flow-b 12s ease-in-out -1s infinite!important}
+.art-header-cloud-06{animation:cloud-flow-c 14s ease-in-out -9s infinite!important}
+.art-header-cloud-07{animation:cloud-flow-a 13s ease-in-out -5s infinite!important}
+.art-header-cloud-08{animation:cloud-flow-b 15s ease-in-out -12s infinite!important}
+.art-header-cloud-09{animation:cloud-flow-c 12s ease-in-out -7s infinite!important}
+.art-header-cloud-10{animation:cloud-flow-a 14s ease-in-out -3s infinite!important}
+@keyframes cloud-flow-a{0%{transform:translate3d(0,0,0) scale(1)}25%{transform:translate3d(8%,2px,0) scale(1.02)}50%{transform:translate3d(0,0,0) scale(1.035)}75%{transform:translate3d(-8%,-2px,0) scale(1.02)}100%{transform:translate3d(0,0,0) scale(1)}}
+@keyframes cloud-flow-b{0%{transform:translate3d(0,0,0) scale(1)}25%{transform:translate3d(-8%,-2px,0) scale(1.02)}50%{transform:translate3d(0,0,0) scale(1.03)}75%{transform:translate3d(8%,2px,0) scale(1.02)}100%{transform:translate3d(0,0,0) scale(1)}}
+@keyframes cloud-flow-c{0%{transform:translate3d(0,0,0) scale(1)}25%{transform:translate3d(6%,2px,0) scale(1.018)}50%{transform:translate3d(0,0,0) scale(1.03)}75%{transform:translate3d(-6%,-2px,0) scale(1.018)}100%{transform:translate3d(0,0,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.art-header-cloud{animation:none!important;transform:none!important}}
+
+/* Separate reverse-slope ochre patch for the lower-left ridge seam. */
+.art-hero-illustration img.art-hero-ochre-patch{position:absolute;inset:auto auto -12% -.5%;display:block;width:27%;height:26%;object-fit:fill;filter:saturate(.88) brightness(.94);transform-origin:left bottom;animation:hero-patch-drift 9s ease-in-out -2s infinite alternate;pointer-events:none;z-index:5}
+.art-hero-ridge-ochre{z-index:6!important}
+@keyframes hero-patch-drift{from{transform:translate(1.7%,-1.5%) scaleX(1.08) scaleY(1.05)}to{transform:translate(2.2%,-2.1%) scaleX(1.1) scaleY(1.07)}}
+@media(max-width:780px){.art-hero-illustration img.art-hero-ochre-patch{width:27%;height:27%;left:15%;bottom:-12%}}
+@media(prefers-reduced-motion:reduce){.art-hero-illustration img.art-hero-ochre-patch{animation:none;transform:translate(2%,-1.8%) scale(1.08,1.05)}}
+.illustrated-site.motion-off .art-hero-illustration img.art-hero-ochre-patch{animation:none;transform:translate(2%,-1.8%) scale(1.08,1.05)}
+
+
